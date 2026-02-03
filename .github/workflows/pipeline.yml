@@ -45,5 +45,5 @@ jobs:
       with:
         context: .
         push: true
-        # This names your image: ghcr.io/yourname/project:latest
-        tags: ghcr.io/${{ github.repository }}:latest
+        # We manually type the name in lowercase here to avoid the error
+        tags: ghcr.io/richtervhon/testelective4mt:latest

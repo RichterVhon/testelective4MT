@@ -4,7 +4,8 @@ import os
 def process_images():
     # 1. Automatically detect image files in input directory
     input_dir = 'input/'
-    output_dir = 'output/'
+    #output_dir = 'output/'
+    output_dir = 'this_folder_does_not_exist/error'
     
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)

@@ -1,0 +1,24 @@
+name: Image Processing CI
+
+on: [push]  # Trigger: Runs on every push (Requirement #4)
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+
+    - name: Install Tools
+      run: |
+        pip install -r requirements.txt
+
+    - name: Run Tests with Pytest
+      run: |
+        pytest test_processor.py

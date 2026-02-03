@@ -1,3 +1,4 @@
 opencv-python-headless
-pytest
 numpy
+pytest
+pytest-html

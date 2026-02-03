@@ -31,3 +31,19 @@ jobs:
     - name: Test Docker Run
       run: |
         docker run image-processor:latest
+
+# Add these steps to the bottom of your jobs
+    - name: Log in to GitHub Container Registry
+      uses: docker/login-action@v2
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Build and Push Docker Image
+      uses: docker/build-push-action@v4
+      with:
+        context: .
+        push: true
+        # This names your image: ghcr.io/yourname/project:latest
+        tags: ghcr.io/${{ github.repository }}:latest

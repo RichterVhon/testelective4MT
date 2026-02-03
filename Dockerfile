@@ -2,11 +2,11 @@
 # We use python:3.9-slim because it's small and fast.
 FROM python:3.9-slim
 
-# STEP 2: Install System Dependencies
-# OpenCV needs some low-level Linux libraries to handle images that aren't in standard Python.
-RUN apt-get update && apt-get install -y \
+# STEP 2: Install System Dependencies with extra resilience
+RUN apt-get update --fix-missing && apt-get install -y \
     libgl1-mesa-glx \
-    libglib2.0-0
+    libglib2.0-0 \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # STEP 3: Set the Workspace
 # This creates a folder inside the "virtual machine" called /app.

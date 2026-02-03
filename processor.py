@@ -18,8 +18,8 @@ def process_images():
             gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
             
             # Technique B: Edge Detection
-            #edges = cv2.Canny(gray, 100, 200)
-            edges = None #intentional error for testing
+            edges = cv2.Canny(gray, 100, 200)
+            #edges = None #intentional error for testing
 
             # 3. Save processed images (Requirement #3)
             cv2.imwrite(os.path.join(output_dir, f"processed_{filename}"), edges)

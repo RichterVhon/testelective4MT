@@ -22,7 +22,7 @@ def process_images():
             edges = None #intentional error for testing
 
             # 3. Save processed images (Requirement #3)
-            #cv2.imwrite(os.path.join(output_dir, f"processed_{filename}"), edges)
+            cv2.imwrite(os.path.join(output_dir, f"processed_{filename}"), edges)
             print(f"Successfully processed {filename}")
 
 if __name__ == "__main__":

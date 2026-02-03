@@ -2,9 +2,9 @@
 # We use python:3.9-slim because it's small and fast.
 FROM python:3.9-slim
 
-# STEP 2: Install System Dependencies with extra resilience
-RUN apt-get update --fix-missing && apt-get install -y \
-    libgl1-mesa-glx \
+# STEP 2: Install System Dependencies (Updated for Debian Bullseye/Bookworm)
+RUN apt-get update && apt-get install -y \
+    libgl1 \
     libglib2.0-0 \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 

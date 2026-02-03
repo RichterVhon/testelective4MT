@@ -4,9 +4,8 @@ import os
 def process_images():
     # 1. Automatically detect image files in input directory
     input_dir = 'input/'
-    #output_dir = 'output/'
-    output_dir = 'this_folder_does_not_exist/error'
-    
+    output_dir = 'output/'
+
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
 
@@ -19,10 +18,11 @@ def process_images():
             gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
             
             # Technique B: Edge Detection
-            edges = cv2.Canny(gray, 100, 200)
-            
+            #edges = cv2.Canny(gray, 100, 200)
+            edges = None #intentional error for testing
+
             # 3. Save processed images (Requirement #3)
-            cv2.imwrite(os.path.join(output_dir, f"processed_{filename}"), edges)
+            #cv2.imwrite(os.path.join(output_dir, f"processed_{filename}"), edges)
             print(f"Successfully processed {filename}")
 
 if __name__ == "__main__":

@@ -22,3 +22,12 @@ jobs:
     - name: Run Tests with Pytest
       run: |
         pytest test_processor.py
+
+# Add this after the Pytest step
+    - name: Build Docker Image
+      run: |
+        docker build -t image-processor:latest .
+        
+    - name: Test Docker Run
+      run: |
+        docker run image-processor:latest

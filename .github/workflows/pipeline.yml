@@ -21,7 +21,14 @@ jobs:
     - name: Install Tools
       run: |
         pip install opencv-python-headless numpy pytest pytest-html
-
+    
+    - name: Run Processor to Generate Files
+      run: |
+        # This ensures the processor runs BEFORE the test checks for the file
+        python processor.py 
+        # Optional: list files so you can see them in the logs if it fails
+        ls -R output/
+        
     - name: Run Quality Tests
       # This runs your tests and generates the professional HTML report
       run: pytest --html=report.html --self-contained-html

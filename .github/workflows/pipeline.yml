@@ -1,19 +1,17 @@
-name: Image Processing CI
+name: Image Processing CI/CD
 
-on: [push]  # Trigger: Runs on every push (Requirement #4)
+on: [push]  # Triggers on ALL branches
 
 jobs:
-  build-and-test:
+  build-and-deploy:
     runs-on: ubuntu-latest
-    #ADD PERMISSIONS HERE
-    
     permissions:
       contents: read
       packages: write
-
+      
     steps:
     - name: Checkout Code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Set up Python
       uses: actions/setup-python@v4
@@ -22,22 +20,19 @@ jobs:
 
     - name: Install Tools
       run: |
-        pip install -r requirements.txt
+        pip install opencv-python-headless numpy pytest pytest-html
 
-    - name: Run Tests with Pytest
-      run: |
-        pytest test_processor.py
+    - name: Run Quality Tests
+      # This runs your tests and generates the professional HTML report
+      run: pytest --html=report.html --self-contained-html
 
-# Add this after the Pytest step
-    - name: Build Docker Image
-      run: |
-        docker build -t image-processor:latest .
-        
-    - name: Test Docker Run
-      run: |
-        docker run image-processor:latest
+    - name: Save Automated Logs
+      # This stores the report as a downloadable file in the "Actions" tab
+      uses: actions/upload-artifact@v4
+      with:
+        name: quality-report-run-${{ github.run_number }}
+        path: report.html
 
-# Add these steps to the bottom of your jobs
     - name: Log in to GitHub Container Registry
       uses: docker/login-action@v2
       with:
@@ -50,5 +45,4 @@ jobs:
       with:
         context: .
         push: true
-        # We manually type the name in lowercase here to avoid the error
         tags: ghcr.io/richtervhon/testelective4mt:latest
